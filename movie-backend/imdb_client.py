@@ -12,7 +12,7 @@ import httpx
 BASE_URL = "https://api.imdbapi.dev"
 POSTER_PLACEHOLDER = ""
 
-# Shared async client (connection-pooled)
+
 _client: Optional[httpx.AsyncClient] = None
 
 def get_client() -> httpx.AsyncClient:
