@@ -7,7 +7,6 @@ __pycache__/
 *.pyc
 
 # Database and large files
-movies.db
 *.tsv
 *.gz
 

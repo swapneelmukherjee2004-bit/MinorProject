@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE = 'http://localhost:8000';
+const BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
     baseURL: BASE,
@@ -21,4 +21,4 @@ export const predictMovies = (query, n = 10) =>
     api.post('/predict', { query, n }).then(r => r.data);
 
 export const createPredictSocket = () =>
-    new WebSocket(`ws://localhost:8000/predict/stream`);
+    new WebSocket(`${BASE.replace(/^http/, 'ws')}/predict/stream`);
