@@ -30,7 +30,7 @@ export default function Home() {
         setLoading(true);
         getMovies(activeGenre, 1, 40)
             .then(d => {
-                // Handle both array and paginated object responses
+     
                 const results = Array.isArray(d) ? d : (d?.results ?? []);
                 setFilteredMovies(results);
                 setLoading(false);
