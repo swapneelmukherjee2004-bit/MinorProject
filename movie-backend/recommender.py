@@ -13,7 +13,6 @@ _movies: list[dict] = []
 _id_to_idx: dict[str, int] = {}
 _tfidf: Optional[TfidfVectorizer] = None
 _tfidf_matrix = None
-_cosine_sim = None
 
 
 def _build_feature_string(movie: dict) -> str:
@@ -27,10 +26,13 @@ def _build_feature_string(movie: dict) -> str:
 
 
 def build_index(movies: list[dict]) -> None:
-    """(Re)build the TF-IDF similarity matrix from a list of movie dicts.
+    """(Re)build the TF-IDF index from a list of movie dicts.
     Call this at startup (or after refreshing the corpus).
+    NOTE: We do NOT precompute the full cosine_similarity matrix because
+    for 10k movies it needs ~800MB RAM, exceeding Render free tier (512MB).
+    Similarities are computed on-the-fly per request instead.
     """
-    global _movies, _id_to_idx, _tfidf, _tfidf_matrix, _cosine_sim
+    global _movies, _id_to_idx, _tfidf, _tfidf_matrix
 
     if not movies:
         return
@@ -42,18 +44,18 @@ def build_index(movies: list[dict]) -> None:
 
     _tfidf = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
     _tfidf_matrix = _tfidf.fit_transform(feature_strings)
-    _cosine_sim = cosine_similarity(_tfidf_matrix, _tfidf_matrix)
 
 
 def get_recommendations(movie_id: str, n: int = 10) -> list[dict]:
     """Return top-N content-similar movies for a given movie_id."""
-    if _cosine_sim is None or movie_id not in _id_to_idx:
+    if _tfidf_matrix is None or movie_id not in _id_to_idx:
         return []
     idx = _id_to_idx[movie_id]
-    sim_scores = list(enumerate(_cosine_sim[idx]))
-    sim_scores.sort(key=lambda x: x[1], reverse=True)
-    sim_scores = [s for s in sim_scores if s[0] != idx][:n]
-    return [_movies[i] for i, _ in sim_scores]
+    # Compute similarity on-the-fly for just this one movie (memory-efficient)
+    sim_scores_arr = cosine_similarity(_tfidf_matrix[idx:idx+1], _tfidf_matrix).flatten()
+    scored = sorted(enumerate(sim_scores_arr), key=lambda x: x[1], reverse=True)
+    scored = [s for s in scored if s[0] != idx][:n]
+    return [_movies[i] for i, _ in scored]
 
 
 def predict_from_text(query: str, n: int = 10) -> list[dict]:

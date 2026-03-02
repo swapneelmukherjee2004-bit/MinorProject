@@ -60,11 +60,14 @@ async def startup():
     count = db.get_movie_count()
     logger.info(f"SQLite DB ready — {count:,} movies available.")
 
-    # Build TF-IDF index from top 10k quality movies in DB
-    logger.info("Building TF-IDF predict index…")
-    corpus = await asyncio.get_event_loop().run_in_executor(None, db.get_corpus, 10_000)
-    build_index(corpus)
-    logger.info(f"TF-IDF index built on {len(corpus):,} movies.")
+    # Build TF-IDF index in background so the API starts serving immediately
+    async def _build_tfidf():
+        logger.info("Building TF-IDF predict index (3k movies)…")
+        corpus = await asyncio.get_event_loop().run_in_executor(None, db.get_corpus, 3_000)
+        await asyncio.get_event_loop().run_in_executor(None, build_index, corpus)
+        logger.info(f"TF-IDF index built on {len(corpus):,} movies.")
+
+    asyncio.create_task(_build_tfidf())
 
 
 # ── Lazy enrichment ───────────────────────────────────────────────────────────
