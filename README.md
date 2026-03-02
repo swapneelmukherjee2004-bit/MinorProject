@@ -21,30 +21,24 @@ CineMatch is a premium movie discovery and recommendation platform. It leverages
 - **Machine Learning**: Scikit-Learn (TF-IDF Vectorizer)
 - **API Client**: HTTPX (with robust retry logic)
 
-## 🚦 Getting Started
+## 🚦 Deployment
 
-### 1. Backend Setup
-```bash
-cd movie-backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+### **Backend (Railway — Recommended)**
+1.  Go to [railway.app](https://railway.app/) and sign in with GitHub.
+2.  **New Project** -> **Deploy from GitHub repo** -> Select **MinorProject**.
+3.  In **Settings**:
+    -   **Root Directory**: `movie-backend`.
+    -   **Start Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
+4.  In **Variables**: Add `PORT=8080`.
 
-# Download and process the IMDb dataset (~1 min)
-python download_dataset.py
+### **Backend (Render — Alternative)**
+1.  **Root Directory**: `movie-backend`.
+2.  **Build Command**: `pip install -r requirements.txt`.
+3.  **Start Command**: Use the same Gunicorn command as above.
 
-# Start the API server
-uvicorn main:app --reload
-```
-
-### 2. Frontend Setup
-```bash
-cd movie-frontend
-npm install
-npm run dev
-```
-
-Visit **http://localhost:5173** (or the port shown in your terminal) to start watching!
+### **Frontend (Vercel)**
+1.  Connect repo -> Root Directory: `movie-frontend`.
+2.  Add Environment Variable: `VITE_API_URL` = your backend URL.
 
 ## 📦 Project Structure
 
