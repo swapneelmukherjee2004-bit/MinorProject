@@ -11,8 +11,8 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "movies.db")
 BASICS_URL  = "https://datasets.imdbws.com/title.basics.tsv.gz"
 RATINGS_URL = "https://datasets.imdbws.com/title.ratings.tsv.gz"
 
-MIN_VOTES   = 1000    # quality floor
-ADULT_FILTER = True   # exclude adult titles
+MIN_VOTES   = 1000    
+ADULT_FILTER = True   
 
 
 # ── Download helpers ──────────────────────────────────────────────────────────
