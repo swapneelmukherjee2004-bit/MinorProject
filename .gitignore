@@ -1,0 +1,33 @@
+# Dependency directories
+node_modules/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Database and large files
+movies.db
+*.tsv
+*.gz
+
+# Build output
+dist/
+build/
+
+# Environment and secrets
+.env
+.env.local
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Antigravity artifacts
+.agents/
+.agent/
+_agents/
+_agent/
+.gemini/
