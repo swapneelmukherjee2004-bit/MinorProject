@@ -17,7 +17,7 @@ export default function Predict() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [streaming, setStreaming] = useState(false);
-    const [status, setStatus] = useState('idle'); // idle | connecting | streaming | done | error | offline
+    const [status, setStatus] = useState('idle'); 
     const [totalFound, setTotalFound] = useState(null);
     const socketRef = useRef(null);
     const debounceRef = useRef(null);
