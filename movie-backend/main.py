@@ -39,19 +39,23 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup():
     if not db.db_exists():
-        logger.warning(
-            "movies.db not found. Run: ./venv/bin/python download_dataset.py\n"
-            "Falling back to live API corpus (200 movies)."
-        )
-        # Fallback: build TF-IDF from small live corpus
-        from imdb_client import fetch_popular_corpus
+        logger.warning("movies.db not found. Starting automatic build from IMDb datasets…")
         try:
-            corpus = await fetch_popular_corpus(n=200)
-            build_index(corpus)
-            logger.info(f"Fallback TF-IDF index built ({len(corpus)} movies).")
+            from download_dataset import build_database
+            # Run the heavy download/build in a separate thread to not block the event loop
+            count = await asyncio.get_event_loop().run_in_executor(None, build_database)
+            logger.info(f"Database built successfully — {count:,} movies available.")
         except Exception as e:
-            logger.warning(f"Fallback corpus failed: {e}")
-        return
+            logger.error(f"Failed to build database: {e}")
+            logger.warning("Falling back to live API corpus (200 movies).")
+            from imdb_client import fetch_popular_corpus
+            try:
+                corpus = await fetch_popular_corpus(n=200)
+                build_index(corpus)
+                logger.info(f"Fallback TF-IDF index built ({len(corpus)} movies).")
+            except Exception as e2:
+                logger.error(f"Fallback corpus also failed: {e2}")
+            return
 
     count = db.get_movie_count()
     logger.info(f"SQLite DB ready — {count:,} movies available.")
