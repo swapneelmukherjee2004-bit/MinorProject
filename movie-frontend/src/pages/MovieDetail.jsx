@@ -7,7 +7,7 @@ import useMovieStore from '../store/useMovieStore';
 
 export default function MovieDetail() {
     const { id } = useParams();
-    const movieId = id; // IMDb IDs are strings like 'tt0468569'
+    const movieId = id; 
     const [movie, setMovie] = useState(null);
     const [recs, setRecs] = useState([]);
     const [loading, setLoading] = useState(true);
