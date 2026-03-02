@@ -23,18 +23,20 @@ CineMatch is a premium movie discovery and recommendation platform. It leverages
 
 ## 🚦 Deployment
 
-### **Backend (Railway — Recommended)**
-1.  Go to [railway.app](https://railway.app/) and sign in with GitHub.
-2.  **New Project** -> **Deploy from GitHub repo** -> Select **MinorProject**.
+### **Backend (Koyeb — Recommended)**
+1.  Go to [koyeb.com](https://www.koyeb.com/) and sign in with GitHub.
+2.  **Create App** -> Select **MinorProject** repo.
 3.  In **Settings**:
-    -   **Root Directory**: `movie-backend`.
-    -   **Start Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
-4.  In **Variables**: Add `PORT=8080`.
+    -   **Root Directory**: `/movie-backend`
+    -   **Run Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000`
+4.  In **Variables**: Add `PORT=8000`.
 
-### **Backend (Render — Alternative)**
-1.  **Root Directory**: `movie-backend`.
-2.  **Build Command**: `pip install -r requirements.txt`.
-3.  **Start Command**: Use the same Gunicorn command as above.
+### **Backend (Railway — Alternative)**
+1.  Go to [railway.app](https://railway.app/).
+2.  **New Project** -> **Deploy from GitHub repo** -> Select **MinorProject**.
+3.  In **Settings**: **Root Directory** = `movie-backend`.
+4.  **Start Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
+5.  In **Variables**: Add `PORT=8000`.
 
 ### **Frontend (Vercel)**
 1.  Connect repo -> Root Directory: `movie-frontend`.
