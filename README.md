@@ -23,24 +23,20 @@ CineMatch is a premium movie discovery and recommendation platform. It leverages
 
 ## 🚦 Deployment
 
-### **Backend (Koyeb — Recommended)**
-1.  Go to [koyeb.com](https://www.koyeb.com/) and sign in with GitHub.
-2.  **Create App** -> Select **MinorProject** repo.
-3.  In **Settings**:
-    -   **Root Directory**: `/movie-backend`
-    -   **Run Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000`
-4.  In **Variables**: Add `PORT=8000`.
+### **Backend (Hugging Face — Truly Free)**
+1.  Go to [huggingface.co/spaces](https://huggingface.co/new-space).
+2.  **SDK**: Select **Docker**.
+3.  **Upload**: Drag and drop all files from your `movie-backend` folder (including the new `Dockerfile`).
+4.  **Automatic**: It will build and give you a public URL (e.g., `https://user-cinematch-api.hf.space`).
 
-### **Backend (Railway — Alternative)**
-1.  Go to [railway.app](https://railway.app/).
-2.  **New Project** -> **Deploy from GitHub repo** -> Select **MinorProject**.
-3.  In **Settings**: **Root Directory** = `movie-backend`.
-4.  **Start Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
-5.  In **Variables**: Add `PORT=8000`.
+### **Backend Alternatives (Koyeb/Railway)**
+*Note: These may require a credit card for verification.*
+-   **Koyeb**: Root Directory: `/movie-backend`.
+-   **Railway**: Root Directory: `movie-backend`.
 
 ### **Frontend (Vercel)**
 1.  Connect repo -> Root Directory: `movie-frontend`.
-2.  Add Environment Variable: `VITE_API_URL` = your backend URL.
+2.  Add Environment Variable: `VITE_API_URL` = your Hugging Face (or other) backend URL.
 
 ## 📦 Project Structure
 
