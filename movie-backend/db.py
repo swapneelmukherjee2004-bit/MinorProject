@@ -10,7 +10,7 @@ from typing import Optional
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "movies.db")
 
-# ── Connection ─────────────────────────────────────────────────────────────────
+
 
 def _con() -> sqlite3.Connection:
     con = sqlite3.connect(DB_PATH, check_same_thread=False)
