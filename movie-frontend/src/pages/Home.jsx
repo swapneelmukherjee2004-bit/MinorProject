@@ -38,7 +38,7 @@ export default function Home() {
             .catch(() => setLoading(false));
     }, [activeGenre]);
 
-    // Use first 5 trending movies as hero candidates, but only if they have images/overview
+
     const heroMovies = trending
         .filter(m => m.backdrop && m.overview)
         .slice(0, 5);
