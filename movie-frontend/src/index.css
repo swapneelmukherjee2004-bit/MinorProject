@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
 
-/* ─── Tokens ───────────────────────────────────────────────────────────────── */
+
 :root {
   --bg-base:        #0a0a0f;
   --bg-surface:     #12121a;
@@ -36,7 +36,7 @@
   --transition-slow: 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─── Reset ────────────────────────────────────────────────────────────────── */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
