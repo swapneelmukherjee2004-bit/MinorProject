@@ -23,20 +23,18 @@ CineMatch is a premium movie discovery and recommendation platform. It leverages
 
 ## 🚦 Deployment
 
-### **Backend (Hugging Face — Truly Free)**
-1.  Go to [huggingface.co/spaces](https://huggingface.co/new-space).
-2.  **SDK**: Select **Docker**.
-3.  **Upload**: Drag and drop all files from your `movie-backend` folder (including the new `Dockerfile`).
-4.  **Automatic**: It will build and give you a public URL (e.g., `https://user-cinematch-api.hf.space`).
-
-### **Backend Alternatives (Koyeb/Railway)**
+### **Backend (Railway/Koyeb)**
 *Note: These may require a credit card for verification.*
--   **Koyeb**: Root Directory: `/movie-backend`.
--   **Railway**: Root Directory: `movie-backend`.
+1.  **Railway**: Go to [railway.app](https://railway.app/).
+2.  **New Project** -> **Deploy from GitHub repo** -> Select **MinorProject**.
+3.  In **Settings**: **Root Directory** = `movie-backend`.
+4.  **Start Command**: `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT`
+5.  In **Variables**: Add `PORT=8000`.
 
-### **Frontend (Vercel)**
-1.  Connect repo -> Root Directory: `movie-frontend`.
-2.  Add Environment Variable: `VITE_API_URL` = your Hugging Face (or other) backend URL.
+### **Backend (Render — Alternative)**
+1.  **Root Directory**: `movie-backend`.
+2.  **Build Command**: `pip install -r requirements.txt`.
+3.  **Start Command**: Use the same Gunicorn command as above.
 
 ## 📦 Project Structure
 
